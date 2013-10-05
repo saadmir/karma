@@ -1,0 +1,35 @@
+{
+  "name": "karma",
+  "version": "0.0.1",
+  "private": true,
+  "config" : {
+    "target" : "dev"
+  },
+
+  "scripts": {
+    "stop":       "forever stop karma.js || true",
+    "start":      "(forever stop karma.js || true) && forever start -a -d -o ./logs/karma.log -l karma.log ./karma.js"
+  },
+
+  "dependencies": {
+    "forever":                      "0.10.x",
+    "forever-monitor":              "1.x.x",
+    "express":                      "3.x.x",
+    "ejs":                          "0.8.x",
+    "underscore":                   "1.x.x",
+    "tracer":                       "0.5.x",
+    "winston":                      "0.7.x",
+    "node-uuid":                    "1.4.x",
+    "request":                      "*",
+    "optimist":                     "*",
+    "mongodb":                      "*",
+    "mongoose":                     "*",
+    "q":                            "0.9.x"
+  },
+
+  "engines": {
+    "node":                         "0.10.x",
+    "npm":                          "1.2.x"
+  }
+}
+

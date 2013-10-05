@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <script src="http://platform.linkedin.com/in.js"></script>
+    <script src="/js/oauth.min.js"></script>
+    <style>
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+  <div id="content" class="container">
+    <h3><%= app_name %></h3>
+    <h5><i>v<%= app_version %></i></h5>
+  </div> <!-- /container -->
+
+<script>
+  OAuth.initialize('jozWEniQ1d59g6SRo5spMtP_NTM');
+  OAuth.popup('linkedin', function(err, result) {
+    console.log(result);
+        //use result.access_token in your API request
+    IN.API.Profile("me")
+     .fields('firstName', 'lastName', 'headline')
+     .result( function(r) {
+          var user = r.values[0];
+          var msg = user.firstName + " " + user.lastName + " is " + user.headline + ".";
+          alert(msg);
+     }
+    );
+  });
+</script>
+</body>
+</html>
+

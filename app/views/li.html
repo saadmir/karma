@@ -1,0 +1,51 @@
+
+<html>
+<head>
+<title>#hack4good: karma</title>
+
+<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+  api_key: klls2xzq270x
+  authorize: true
+</script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.5b1.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+function loadData() {
+  IN.API.Profile("me")
+    .fields(["id", "firstName", "lastName", "email-address", "pictureUrl","headline","publicProfileUrl",'skills'])
+    .result(function(result) {
+      console.dir(result);
+      profile = result.values[0];
+      profHTML = "<p><a href=\"" + profile.publicProfileUrl + "\">";
+      profHTML += "<img class=img_border align=\"left\" src=\"" + profile.pictureUrl + "\"></a>";
+      profHTML += "<a href=\"" + profile.publicProfileUrl + "\">";
+      profHTML += "<h2 class=myname>" + profile.firstName + " " + profile.lastName + "</a> </h2>";
+      profHTML += "<span class=myheadline>" + profile.headline + "</span>";
+      $("#profile").html(profHTML);
+      console.dir(profile.id);
+      console.dir(profile.skills.values);
+
+      var self = this;
+      var url = '/volunteer/';
+      jQuery.post(url,profile)
+      .done(function(data){
+        console.log(data);
+      });
+    });
+}
+
+</script>
+
+
+</head>
+<body class="yui3-skin-sam  yui-skin-sam">
+<div id="profile">
+    </div>
+    <script type="IN/Login" data-onAuth="loadData"></script>
+</body>
+</html>
