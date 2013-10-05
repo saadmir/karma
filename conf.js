@@ -4,8 +4,8 @@ var path = require('path'),
 
 conf.package_json                     = require('./package.json');
 
-conf.HOST                             = argv.HOST || process.env.HOST || 'dev.saadmir.com';
-conf.PORT                             = argv.PORT || process.env.PORT || 80;
+conf.HOST                             = argv.HOST || process.env.HOST || 'localhost';
+conf.PORT                             = argv.PORT || process.env.PORT || 8080;
 conf.APP_URL                          = 'http://' + conf.HOST + ':' + conf.PORT + '/';
 conf.APP_NAME                         = process.env.APP_NAME || 'karma';
 
