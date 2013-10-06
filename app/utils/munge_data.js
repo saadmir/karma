@@ -9,6 +9,28 @@ var stringifySkills = function(skillsArray) {
 };
 
 module.exports = {
+  mungeOpportunities : function(data) {
+    var munged = [];
+    _.each(data, function(hash, index) {
+      munged.push(
+        {
+          id: hash.id,
+          title: hash.title,
+          orgName: hash.profile.orgName,
+          orgURL: hash.profile.orgURL,
+          email: hash.profile.email,
+          location: hash.profile.location,
+          lat: hash.profile.lat,
+          long: hash.profile.long,
+          description: hash.profile.description,
+          commitment: hash.profile.commitment,
+          causes: hash.profile.casuses,
+          skills: hash.profile.skills
+        }
+      );
+    });
+    return {'opportunities': munged};
+  },
   mungeVolunteers : function(data) {
     var munged = [];
     _.each(data, function(hash, index) {

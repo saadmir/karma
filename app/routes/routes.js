@@ -54,13 +54,28 @@ module.exports = function(app) {
     app.log.info(req.body.id);
 
     Volunteer.findOneOrCreate(req.body)
-    .then(function(){
-      app.log.info(arguments);
-      return res.send(200);
+    .then(function(doc){
+      app.log.info(doc);
+      return res.send(app.munge_data.mungeVolunteers([doc]));
     })
     .fail(function(){
       app.log.info(arguments);
       return res.send(500);
+    });
+  });
+
+  app.get(app.conf.routePrefix + 'opportunities', function(req, res, next){
+    app.log.info('[GET opportunities/] ');
+
+    app.crud.exec(Org.find({}))
+    .then(function(docs){
+      app.log.info(docs);
+      if (docs && docs.length) return res.send(JSON.stringify(app.munge_data.mungeOpportunities(docs)));
+      return res.send(200);
+    })
+    .fail(function(){
+      app.log.error(arguments);
+      return res.send(400);
     });
   });
 

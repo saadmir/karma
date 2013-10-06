@@ -8,7 +8,8 @@ var _         = require('underscore'),
 
 module.exports = function(app){
   var OrgSchema = new mongoose.Schema({
-    email:                  { type: String, required: true, lowercase: true, index: { unique: true }},
+    id:                     { type: String, required: true, index: { unique: true }},
+    title:                  { type: String, required: true, index: { unique: true }},
     profile:                {},
     //causes:                 [],
     //skills:                 [],
@@ -34,20 +35,27 @@ module.exports = function(app){
     var self = this,
         deferred = Q.defer();
 
-    var query = self.findOne({email: data.email});
+    var titleStr = (data.opportunity.title || '').replace(/\s+/ig,'').toLowerCase();
+    var id = require('crypto').createHash('md5').update(titleStr).digest("hex");
+
+    if (!titleStr || !titleStr.length || !id || !id.length) return Q.reject(new Error('-2000'));
+
+    var query = self.findOne({id: id});
     app.crud.exec(query)
     .then(function(doc){
-      if (doc && doc.email === data.email){
-        app.log.info('found existing org with email: ' + data.email);
-        doc.profile = data;
+      app.log.info(doc);
+      if (doc && doc.id === titleStr){
+        app.log.info('found existing org with title: ' + data.title);
+        doc.profile = data.opportunity;
         return app.crud.save(doc);
       } else {
-        var newOrg = new self({email: data.email, profile: data});
+        app.log.info('creating new');
+        var newOrg = new self({id: id, title: data.opportunity.title, profile: data.opportunity});
         return app.crud.save(newOrg);
       }
     })
     .then(function(doc){
-      if (doc && doc.email === data.email){
+      if (doc && doc.id === id){
         deferred.resolve(doc);
       } else {
         app.log.error('[[Org.findOneOrCreate] returning 0 ?');
