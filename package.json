@@ -20,6 +20,7 @@
     "tracer":                       "0.5.x",
     "winston":                      "0.7.x",
     "node-uuid":                    "1.4.x",
+    "nodemailer":                   "*",
     "request":                      "*",
     "optimist":                     "*",
     "mongodb":                      "*",

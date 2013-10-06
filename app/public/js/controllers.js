@@ -7,10 +7,13 @@ App.OpportunitiesNewController = Ember.ObjectController.extend({
       if (!title.trim()) { return; }
 
       // Save the new model
-      this.get('model').save();
+      this.get('model').save()
+      window.orgname = this.get('title');
+      console.log(this.get('title'));
+      this.transitionToRoute('volunteers')
 
       // Clear the form
-      this.set('model', this.store.createRecord('opportunity'));
+      //this.set('model', this.store.createRecord('opportunity'));
     }
   }
 

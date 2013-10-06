@@ -31,6 +31,17 @@ module.exports = {
     });
     return {'opportunities': munged};
   },
+
+  mungeSkills : function(volunteers) {
+    var skills = [];
+    _(volunteers).each(function(volunteer, index){
+      _(volunteer.profile.skills.values).each(function(skill, index){
+        skills[skills.length] = skill.skill.name;
+      });
+    });
+    return {skills: skills};
+  },
+
   mungeVolunteers : function(data) {
     var munged = [];
     _.each(data, function(hash, index) {

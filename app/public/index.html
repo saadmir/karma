@@ -17,21 +17,21 @@
 
 
 
-  <!-- Header partial -->
-  <script type="text/x-handlebars" data-template-name="partial/header">
-    <section id="section_home_header">
-      <div class="div_title">
-        <h1 class="title">
-          Karma
-        </h1>
-      </div> <!-- end div_title -->
-    </section> <!-- end section_home_header -->
-  </script>
+<!-- Header partial -->
+<script type="text/x-handlebars" data-template-name="partial/header">
+  <section id="section_home_header">
+    <div class="div_title">
+      <h1 class="title">
+        Karma
+      </h1>
+    </div> <!-- end div_title -->
+  </section> <!-- end section_home_header -->
+</script>
 
-  <!-- Application -->
-  <script type="text/x-handlebars">
-      {{outlet}}
-  </script>
+<!-- Application -->
+<script type="text/x-handlebars">
+    {{outlet}}
+</script>
 
 
 
@@ -163,6 +163,15 @@
               class="form-control"}}
           </div>
         </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            {{view Ember.Select
+              multiple="true"
+              valueBinding="skills"
+              contentBinding="allskills"
+            }}
+          </div>
+        </div>
       </form>
       <button type="button" class="btn btn-primary" {{action "createOpportunity"}} >Submit</button>
     </div>
@@ -178,15 +187,12 @@
     <ul>
     {{#each model}}
       <li><h4>{{name}}</h4>
-      <p><a href="mailto:shan@getkarma.co?subject=I'd%20Like%20To%20Request%20{{name}}&amp;body=Hi%20Karma,%20I%20would%20like%20to%20request%20{{name}}%20for%20a%20project.%20%20This%20project%20needs%20%5BPLEASE%20FILL%20IN%20BLANK%5D%20skills.%20">REQUEST</a></p>
+      <img {{bind-attr src=image}}></img>
+      <br>
+      <p><button type="button" class="btn btn-info" {{action "sendMail" email}} > Request Help </button></p>
       <p>
-        <strong>Causes:</strong><br/>
-        {{causes}}
-        </p>
-        <p>
-        <strong>Skills:</strong><br/>
-        {{skills}}
-        </p>
+        <strong>Skills:</strong>{{skills}}
+      </p>
       </li>
     {{/each}}
     </ul>

@@ -50,6 +50,7 @@ module.exports = function(conf){
   require(conf.paths.models)(app);
   require(conf.paths.routes)(app);
 
+  app.mailer              = require(path.join(conf.paths.utils,'mailer'))(app);
   require('http').createServer(app).listen(conf.PORT, conf.HOST,function(){
     app.log.info('http server listening on ' + (conf.HOST && conf.HOST.length ? conf.HOST : 'localhost') + ':' + conf.PORT);
     console.log('http server listening on ' + (conf.HOST && conf.HOST.length ? conf.HOST : 'localhost') + ':' + conf.PORT);

@@ -16,6 +16,8 @@ App.Volunteer = DS.Model.extend({
   location: attr('string'),
   lat: attr('number'),
   long: attr('number'),
+  image: attr('string'),
+  requestLink: 'mailto: saadmir@gmail.com'
 });
 
 App.Opportunity = DS.Model.extend({
@@ -29,7 +31,8 @@ App.Opportunity = DS.Model.extend({
   description: attr('string'),
   commitment: attr('string'),
   causes: attr('string'),
-  skills: attr('string')
+  skills: attr(),
+  allskills: [],
 });
 
 App.Volunteer.FIXTURES = [

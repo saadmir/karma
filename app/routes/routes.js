@@ -7,14 +7,10 @@ module.exports = function(app) {
       Org           = app.models.Org,
       Volunteer     = app.models.Volunteer;
 
-  app.get(conf.routePrefix + 'li', function(req,res){
-    app.log.info(req.path);
-    app.log.info(req.query);
-    res.render('li',
-      {
-        app_name: conf.package_json.name,
-        app_version: conf.package_json.version
-      });
+  app.post(conf.routePrefix + 'sendmail', function(req,res){
+    app.log.info(req.body);
+    app.mailer.sendmail([req.body.volunteer],req.body.orgName, req.body.title);
+    res.send(200);
   });
 
   app.get(app.conf.routePrefix + 'volunteer/:id', function(req, res, next){
@@ -32,12 +28,27 @@ module.exports = function(app) {
     });
   });
 
+  app.get(app.conf.routePrefix + 'skills', function(req, res, next){
+    app.log.info('[GET skills] ' + req.params.id);
+
+    app.crud.exec(Volunteer.find({}))
+    .then(function(docs){
+      app.log.info(docs);
+      if (docs && docs.length) return res.send(app.munge_data.mungeSkills(docs));
+      return res.send(200);
+    })
+    .fail(function(){
+      app.log.error(arguments);
+      return res.send(400);
+    });
+  });
+
   app.get(app.conf.routePrefix + 'volunteers', function(req, res, next){
     app.log.info('[GET volunteer/] ' + req.params.id);
 
     app.crud.exec(Volunteer.find({}))
     .then(function(docs){
-      app.log.info(docs);
+      app.log.info(app.munge_data.mungeVolunteers(docs));
       //if (docs && docs.length) return res.send(JSON.stringify(docs));
       if (docs && docs.length) return res.send(JSON.stringify(app.munge_data.mungeVolunteers(docs)));
       return res.send(200);
