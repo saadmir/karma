@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Karma</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="text/javascript" src="http://platform.linkedin.com/in.js">
+    api_key: klls2xzq270x
+    authorize: true
+  </script>
+
+</head>
+<body>
+
+  <script type="text/x-handlebars">
+    <div class="container">
+      <h2>Welcome to Karma</h2>
+
+      <nav>
+        <ul>
+          <li>
+            {{#link-to 'index'}}
+              Home
+            {{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'opportunities.index'}}
+              View Opportunities
+            {{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'volunteers.signup'}}
+              Signup to Volunteer
+            {{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'volunteers.index'}}
+              View Volunteers
+            {{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'opportunities.new'}}
+              New Opportunity
+            {{/link-to}}
+          </li>
+        </ul>
+      </nav>
+
+      {{outlet}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="index">
+    <ul>
+      <li>
+        For Volunteers:
+        <ul>
+          <li>
+            {{#link-to 'opportunities.index'}}
+              View Opportunities
+            {{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'volunteers.signup'}}
+              Signup to Volunteer
+            {{/link-to}}
+          </li>
+        </ul>
+      </li>
+      <li>
+        For Organizations:
+        <ul>
+          <li>
+            {{#link-to 'volunteers.index'}}
+              View Volunteers
+            {{/link-to}}
+          </li>
+          <li>
+            {{#link-to 'opportunities.new'}}
+              New Opportunity
+            {{/link-to}}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="opportunities/index">
+    <h3>Opportunity List</h3>
+    <ul>
+    {{#each model}}
+      <li>
+        <h4>{{title}}</h4>
+        <p><a href="{{orgURL}}">{{orgName}}</a></p>
+        <p><strong>Cause:</strong><br/> {{causes}}</p>
+        <p><strong>Need:</strong><br/> {{skills}}</p>
+        <p><a href="mailto:shan@getkarma.co?subject=I%20want%20to%20volunteer%20with%20{{orgName}}">I'm interested</a></p>
+      </li>
+    {{/each}}
+    </ul>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="opportunities/new">
+    <div class="col-md-8">
+      <h3>Submit a New Opportunity</h3>
+      <form role="form" class="form-horizontal">
+        <div class="form-group">
+          <div class="col-sm-6">
+            {{input type="text"
+              value=title
+              placeholder="Opportunity Title"
+              class="form-control"}}
+          </div>
+          <div class="col-sm-6">
+          {{input type="text"
+            value=orgName
+            placeholder="Organization Name"
+            class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6">
+            {{input type="text"
+              value=orgURL
+              placeholder="Website - http://example.com"
+              class="form-control"}}
+            </div>
+          <div class="col-sm-6">
+            {{input type="text"
+              value=email
+              placeholder="Contact email"
+              class="form-control"}}
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            {{input type="text"
+              value=location
+              placeholder="Location"
+              class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            {{input type="text"
+              value=commitment
+              placeholder="Commitment"
+              class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            {{textarea
+              value=description
+              placeholder="Description"
+              rows=5
+              class="form-control"}}
+          </div>
+        </div>
+      </form>
+      <button type="button" class="btn btn-primary" {{action "createOpportunity"}} >Submit</button>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="volunteers/index">
+    <h3>Volunteer List</h3>
+    <ul>
+    {{#each model}}
+      <li><h4>{{name}}</h4>
+      <p><a href="mailto:shan@getkarma.co?subject=I'd%20Like%20To%20Request%20{{name}}&amp;body=Hi%20Karma,%20I%20would%20like%20to%20request%20{{name}}%20for%20a%20project.%20%20This%20project%20needs%20%5BPLEASE%20FILL%20IN%20BLANK%5D%20skills.%20">REQUEST</a></p>
+      <p>
+        <strong>Causes:</strong><br/>
+        {{causes}}
+        </p>
+        <p>
+        <strong>Skills:</strong><br/>
+        {{skills}}
+        </p>
+      </li>
+    {{/each}}
+    </ul>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="volunteers/signup">
+    <div class="col-md-8">
+      <h3>Volunteer Signup</h3>
+      <form role="form" class="form-horizontal">
+        <div class="form-group">
+          <div class="col-sm-6">
+            {{input type="text"
+              value=name
+              placeholder="Name"
+              class="form-control"}}
+          </div>
+          <div class="col-sm-6">
+          {{input type="text"
+            value=email
+            placeholder="Email"
+            class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6">
+            {{input type="text"
+              value=volunteerURL
+              placeholder="Website - http://example.com"
+              class="form-control"}}
+            </div>
+          <div class="col-sm-6">
+            {{input type="text"
+              value=email
+              placeholder="Email"
+              class="form-control"}}
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            {{input type="text"
+              value=location
+              placeholder="Location"
+              class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            {{textarea
+              value=description
+              placeholder="About yourself..."
+              rows=5
+              class="form-control"}}
+          </div>
+        </div>
+      </form>
+      <button type="button" class="btn btn-primary" {{action "doLinkedIn"}} >LinkedIn</button>
+      <button type="button" class="btn btn-primary" {{action "registerVolunteer"}} >Submit</button>
+    </div>
+    </form>
+  </script>
+
+  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="js/libs/handlebars-1.0.0.js"></script>
+  <script src="js/libs/ember-1.0.0.js"></script>
+  <script src="js/libs/ember-data-1.0.0-beta.3.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/controllers.js"></script>
+</body>
+</html>
