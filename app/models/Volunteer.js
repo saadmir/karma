@@ -35,7 +35,7 @@ module.exports = function(app){
       if (doc && doc.lnkdid === data.id){
         app.log.info('found existing user with lnkdid: ' + data.id);
         doc.profile = data;
-        return app.crud.save(newUser);
+        return app.crud.save(doc);
       } else {
         var newUser = new self({lnkdid: data.id, profile: data});
         return app.crud.save(newUser);

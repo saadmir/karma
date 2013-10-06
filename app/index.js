@@ -18,6 +18,7 @@ module.exports = function(conf){
   app.conf                = conf;
   app.models              = {};
   app.log                 = require(path.join(conf.paths.utils,'logger'))(conf);
+  app.munge_data          = require(path.join(conf.paths.utils,'munge_data'));
   app.db                  = require('mongoose');
   app.db.connect(conf.DB.uri);
 
@@ -32,7 +33,7 @@ module.exports = function(conf){
 
   app.use(express.cookieParser(conf.secret));
   app.use(app.router);
-  app.use('/js',express['static'](path.join(__dirname, 'public','js')));
+  app.use('/v1',express['static'](path.join(__dirname, 'public')));
 
   app.get(conf.routePrefix, function(req,res){
     app.log.info(req.path);

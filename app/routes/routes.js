@@ -32,13 +32,14 @@ module.exports = function(app) {
     });
   });
 
-  app.get(app.conf.routePrefix + 'volunteer/', function(req, res, next){
+  app.get(app.conf.routePrefix + 'volunteers', function(req, res, next){
     app.log.info('[GET volunteer/] ' + req.params.id);
 
     app.crud.exec(Volunteer.find({}))
     .then(function(docs){
       app.log.info(docs);
-      if (docs && docs.length) return res.send(JSON.stringify(docs));
+      //if (docs && docs.length) return res.send(JSON.stringify(docs));
+      if (docs && docs.length) return res.send(JSON.stringify(app.munge_data.mungeVolunteers(docs)));
       return res.send(200);
     })
     .fail(function(){
@@ -63,18 +64,18 @@ module.exports = function(app) {
     });
   });
 
-  app.post(app.conf.routePrefix + '/org/', function(req, res, next){
-    app.log.info('[POST org] ' + req.params.uid);
+  app.post(app.conf.routePrefix + 'opportunities', function(req, res, next){
+    app.log.info('[POST opportunities ');
     app.log.info(req.body);
 
-    Org.update(req.body)
-    .then(function(doc){
-      app.log.info(doc);
-      res.send(200,User.toClientJSON(doc));
+    Org.findOneOrCreate(req.body)
+    .then(function(){
+      app.log.info(arguments);
+      return res.send(200);
     })
-    .fail(function(error){
-      app.log.error(error);
-      res.send(500,{error: error.message});
+    .fail(function(){
+      app.log.info(arguments);
+      return res.send(500);
     });
   });
 };
