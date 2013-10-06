@@ -15,78 +15,76 @@
 </head>
 <body>
 
+
+
+  <!-- Header partial -->
+  <script type="text/x-handlebars" data-template-name="partial/header">
+    <section id="section_home_header">
+      <div class="div_title">
+        <h1 class="title">
+          Karma
+        </h1>
+      </div> <!-- end div_title -->
+    </section> <!-- end section_home_header -->
+  </script>
+
+  <!-- Application -->
   <script type="text/x-handlebars">
-    <div class="container">
-      <h2>Welcome to Karma</h2>
-
-      <nav>
-        <ul>
-          <li>
-            {{#link-to 'index'}}
-              Home
-            {{/link-to}}
-          </li>
-          <li>
-            {{#link-to 'opportunities.index'}}
-              View Opportunities
-            {{/link-to}}
-          </li>
-          <li>
-            {{#link-to 'volunteers.signup'}}
-              Signup to Volunteer
-            {{/link-to}}
-          </li>
-          <li>
-            {{#link-to 'volunteers.index'}}
-              View Volunteers
-            {{/link-to}}
-          </li>
-          <li>
-            {{#link-to 'opportunities.new'}}
-              New Opportunity
-            {{/link-to}}
-          </li>
-        </ul>
-      </nav>
-
       {{outlet}}
-    </div>
   </script>
 
+
+
+
+
+
+  <!-- Home Page -->
   <script type="text/x-handlebars" data-template-name="index">
-    <ul>
-      <li>
-        For Volunteers:
-        <ul>
-          <li>
-            {{#link-to 'opportunities.index'}}
-              View Opportunities
-            {{/link-to}}
-          </li>
-          <li>
-            {{#link-to 'volunteers.signup'}}
-              Signup to Volunteer
-            {{/link-to}}
-          </li>
-        </ul>
-      </li>
-      <li>
-        For Organizations:
-        <ul>
-          <li>
-            {{#link-to 'volunteers.index'}}
-              View Volunteers
-            {{/link-to}}
-          </li>
-          <li>
-            {{#link-to 'opportunities.new'}}
-              New Opportunity
-            {{/link-to}}
-          </li>
-        </ul>
-      </li>
-    </ul>
+
+    {{partial "partial/header"}}
+
+
+    <section id="section_home_body">
+      <div class="box">
+        <div class="row wrapper">
+          <div class="col-md-6  col-sm-6 col-xs-12 volunteer chunk">
+            <h1> Young <br> Professionals </h1>
+            <div class="text_box">
+              <h3>Use your skills to help important causes! </h3>
+            </div>
+              {{#link-to 'opportunities.index' classNames="btn-lg btn-primary"}}
+                Find Projects
+              {{/link-to}}
+              <br>
+              {{#link-to 'volunteers.signup' classNames="link"}}
+                Or Signup to Volunteer
+              {{/link-to}}
+          </div> <!-- end volunteer -->
+
+
+          <div class="col-md-6  col-sm-6 col-xs-12 organizer chunk">
+            <h1> Social Impact <br> Organizations </h1>
+
+            <div class="text_box">
+              <h3>Leverage the power of your local community!</h3>
+            </div>
+              {{#link-to 'volunteers.index' classNames="btn-lg btn-success"}}
+                Find Volunteers
+              {{/link-to}}
+              <br>
+              {{#link-to 'opportunities.new' classNames="link"}}
+                Or Post an Opportunity
+              {{/link-to}}
+          </div> <!-- end organizer -->
+        </div>
+      </div> <!-- end box -->
+    </section> <!-- end section_home_body -->
   </script>
+
+
+
+
+  <!-- Opportunites -->
 
   <script type="text/x-handlebars" data-template-name="opportunities/index">
     <h3>Opportunity List</h3>
@@ -102,6 +100,11 @@
     {{/each}}
     </ul>
   </script>
+
+
+
+
+  <!-- New Opportunity -->
 
   <script type="text/x-handlebars" data-template-name="opportunities/new">
     <div class="col-md-8">
@@ -165,6 +168,11 @@
     </div>
   </script>
 
+
+
+
+  <!-- Volunteers -->
+
   <script type="text/x-handlebars" data-template-name="volunteers/index">
     <h3>Volunteer List</h3>
     <ul>
@@ -183,6 +191,13 @@
     {{/each}}
     </ul>
   </script>
+
+
+
+
+
+
+  <!-- Volunteer signup -->
 
   <script type="text/x-handlebars" data-template-name="volunteers/signup">
     <div class="col-md-8">
@@ -239,6 +254,9 @@
     </div>
     </form>
   </script>
+
+
+
 
   <script src="js/libs/jquery-1.9.1.js"></script>
   <script src="js/libs/handlebars-1.0.0.js"></script>

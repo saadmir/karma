@@ -1,4 +1,136 @@
-/* Put your CSS here */
-html, body {
-    margin: 20px;
+/***************************************/
+/* Home Page */
+/***************************************/
+
+#section_home_header .div_title {
+  text-align: center;
 }
+
+#section_home_header .div_title .title{
+  margin: 0;
+  padding-top: 1em;
+  color: #45A8F5;
+  font-size: 5em;
+}
+
+
+#section_home_body .box {
+  position: absolute;
+  height: 100%;
+  /*max-height: 705px;*/
+  width: 100%;
+  background: url("../images/sf.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+#section_home_body .wrapper {
+  margin: 10%;
+  text-align: center;
+}
+
+#section_home_body .wrapper .chunk {
+  color: #fff;
+}
+
+#section_home_body .wrapper .chunk h1 {
+  font-size: 3.5em;
+}
+
+#section_home_body .wrapper .chunk h2 {
+  margin-bottom: 30px;
+}
+
+#section_home_body .wrapper .chunk h3 {
+  margin-bottom: 80px;
+}
+
+
+
+#section_home_body .wrapper .chunk .link{
+  float: left;
+  margin-top: 20px;
+  margin-left: 37%;
+}
+
+
+
+/***************************************/
+/* Media Queries */
+/***************************************/
+
+@media (min-width: 400px) {
+  #section_home_body .wrapper .chunk {
+    margin-bottom: 100px;
+  }
+}
+
+@media (max-width: 1000px) {
+  #section_home_body .wrapper .chunk h3{
+    font-size: 1.5em;
+  }
+  #section_home_body .wrapper .chunk h1 {
+    font-size: 2.5em;
+  }
+
+  #section_home_body .wrapper .chunk .link {
+    margin-left: 25%;
+  }
+}
+
+
+
+
+/***************************************/
+/* List Styles */
+/***************************************/
+
+.section_list .listings_container {
+  background-color: red;
+  position: relative;
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
+}
+
+.section_list .listings_container .ul_div {
+  margin: 0 auto;
+  position: relative;
+  width: 80%;
+}
+
+.section_list .listings_container ul {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.section_list .listings_container ul li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+.section_list .listings_container ul li  .each_listing{
+  background-color: blue;
+  margin: 2%;
+  width: 300px;
+}
+
+/*.section_list .listings_container {
+  margin: 0 auto;
+  width: 80%;
+  height: auto;
+  text-align: center;
+  background-color: red;
+
+}
+
+.section_list .listings_container .each_listing {
+  position: relative;
+  background-color: blue;
+  margin: 10px;
+  float: left;
+}
+*/
